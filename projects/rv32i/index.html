@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Youssef Amarir’s SystemVerilog RISC-V core, pipeline verification, and measured forwarding results.">
+  <title>RV32I Processor | Youssef Amarir</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, system-ui, sans-serif; color: #eef0eb; background: #121513; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { max-width: 960px; margin: auto; padding: 32px clamp(16px, 5vw, 48px) 64px; }
+    nav { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 46px; }
+    a { color: #ffab83; text-underline-offset: 4px; }
+    h1 { margin: 0 0 16px; font-size: clamp(2.3rem, 7vw, 4rem); line-height: 1.07; letter-spacing: -.055em; }
+    h2 { margin-top: 44px; font-size: 1.35rem; }
+    p, figcaption { line-height: 1.65; max-width: 75ch; }
+    p, figcaption { color: #c3cbc4; }
+    img { width: 100%; height: auto; display: block; }
+    figure { margin: 24px 0; }
+    figure img { border-radius: 8px; }
+    figcaption { margin-top: 9px; font-size: .925rem; }
+    dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+    dl div { padding: 14px; border: 1px solid #414b44; border-radius: 8px; }
+    dt { font-size: .9rem; color: #c3cbc4; }
+    dd { margin: 6px 0 0; font-size: 1.35rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+<main>
+  <nav aria-label="Project navigation">
+    <a href="../../#projects">← Projects</a>
+    <a href="https://github.com/youssefamarir/rv32i-core">Source and tests on GitHub ↗</a>
+  </nav>
+  <h1>RV32I Processor</h1>
+  <p>A single-cycle core and a five-stage pipeline share a SystemVerilog instruction decoder, memory system, and retirement interface. A 16-entry trace buffer freezes after a configurable number of cycles following a stall or redirect.</p>
+  <figure>
+    <img src="datapath.svg" alt="Pipeline datapath with fetch, decode, execute, memory, and writeback stages, bypass paths, and trace buffer">
+    <figcaption>The bypass paths feed execute from the two older stages. Trace capture records stage PCs and control decisions.</figcaption>
+  </figure>
+  <h2>Simulation results</h2>
+  <dl>
+    <div><dt>Programs</dt><dd>48</dd></div>
+    <div><dt>Simulation runs</dt><dd>149</dd></div>
+    <div><dt>Compared events</dt><dd>38,109</dd></div>
+    <div><dt>C workload cycle reduction</dt><dd>26.6%</dd></div>
+  </dl>
+  <p>The same compiled C program took 12,442 cycles without forwarding and 9,130 with it. Both modes retired 7,301 instructions with matching architectural results. The regression compared all three core configurations to a separate Python ISA model.</p>
+  <h2>Load-to-use stall</h2>
+  <figure>
+    <a href="load-use.png"><img src="load-use.png" alt="Timing diagram of a load-use stall followed by a bubble and MEM/WB forwarding" loading="lazy"></a>
+    <figcaption>Decode holds for one cycle, execute takes a bubble, and the loaded value forwards from MEM/WB. The dependent instruction writes 42 to x6.</figcaption>
+  </figure>
+  <h2>Wrong-path store</h2>
+  <figure>
+    <a href="branch-flush.png"><img src="branch-flush.png" alt="Timing diagram of a taken branch redirecting fetch and discarding a younger store" loading="lazy"></a>
+    <figcaption>A taken branch clears the younger stages. The store on the skipped path never commits.</figcaption>
+  </figure>
+  <p><a href="https://github.com/youssefamarir/rv32i-core/blob/main/docs/bugs.md">Debugging notes</a> · <a href="https://github.com/youssefamarir/rv32i-core/blob/main/evidence/regression.log">Full regression log</a></p>
+</main>
+</body>
+</html>

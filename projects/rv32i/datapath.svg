@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 660" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1f2933"/>
+    </marker>
+    <marker id="f" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#1d5fa8"/>
+    </marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/>
+    </marker>
+    <marker id="t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/>
+    </marker>
+    <style>
+      .stage { fill: #f5f7fa; stroke: #cbd2d9; }
+      .blk { fill: #ffffff; stroke: #1f2933; stroke-width: 1.3; }
+      .reg { fill: #3e4c59; }
+      .lbl { font-size: 12px; fill: #1f2933; }
+      .small { font-size: 10px; fill: #52606d; }
+      .title { font-size: 16px; font-weight: 700; fill: #1f2933; }
+      .head { font-size: 14px; font-weight: 700; fill: #52606d; letter-spacing: 1px; }
+      .w { stroke: #1f2933; stroke-width: 1.4; fill: none; }
+      .fw { stroke: #1d5fa8; stroke-width: 1.6; fill: none; }
+      .rd { stroke: #c2410c; stroke-width: 1.6; fill: none; }
+      .tr { stroke: #6b7280; stroke-width: 1.1; fill: none; stroke-dasharray: 4 3; }
+      .fwt { font-size: 10px; fill: #1d5fa8; }
+      .rdt { font-size: 10px; fill: #c2410c; }
+    </style>
+  </defs>
+
+  <rect width="1240" height="660" fill="#ffffff"/>
+  <text x="24" y="26" class="title">RV32I five-stage pipeline (rv_core_pipe) with forwarding and a triggerable trace buffer</text>
+  <text x="24" y="44" class="small">The single-cycle core (rv_core_sc) uses the same decoder, ALU, branch unit, register file and memory wrapper without pipeline registers.</text>
+
+  <rect x="20" y="84" width="210" height="400" class="stage"/>
+  <rect x="256" y="84" width="250" height="400" class="stage"/>
+  <rect x="532" y="84" width="270" height="400" class="stage"/>
+  <rect x="828" y="84" width="200" height="400" class="stage"/>
+  <rect x="1054" y="84" width="166" height="400" class="stage"/>
+  <text x="125" y="104" class="head" text-anchor="middle">IF</text>
+  <text x="381" y="104" class="head" text-anchor="middle">ID</text>
+  <text x="667" y="104" class="head" text-anchor="middle">EX</text>
+  <text x="928" y="104" class="head" text-anchor="middle">MEM</text>
+  <text x="1137" y="104" class="head" text-anchor="middle">WB</text>
+
+  <rect x="234" y="114" width="18" height="360" class="reg"/>
+  <rect x="510" y="114" width="18" height="360" class="reg"/>
+  <rect x="806" y="114" width="18" height="360" class="reg"/>
+  <rect x="1032" y="114" width="18" height="360" class="reg"/>
+  <text x="243" y="498" class="small" text-anchor="middle">IF/ID + valid</text>
+  <text x="519" y="498" class="small" text-anchor="middle">ID/EX + valid</text>
+  <text x="815" y="498" class="small" text-anchor="middle">EX/MEM + valid</text>
+  <text x="1041" y="498" class="small" text-anchor="middle">MEM/WB + valid</text>
+
+  <path d="M40,150 L54,164 V216 L40,230 Z" class="blk"/>
+  <text x="47" y="246" class="small" text-anchor="middle">PC mux</text>
+  <rect x="80" y="170" width="46" height="40" class="blk"/>
+  <text x="103" y="195" class="lbl" text-anchor="middle">PC</text>
+  <rect x="148" y="160" width="74" height="60" class="blk"/>
+  <text x="185" y="183" class="lbl" text-anchor="middle">ROM</text>
+  <text x="185" y="197" class="small" text-anchor="middle">4 KiB</text>
+  <text x="185" y="210" class="small" text-anchor="middle">fetch fault</text>
+  <rect x="150" y="250" width="46" height="30" class="blk"/>
+  <text x="173" y="270" class="lbl" text-anchor="middle">+4</text>
+  <path d="M54,190 H80" class="w" marker-end="url(#a)"/>
+  <path d="M126,190 H148" class="w" marker-end="url(#a)"/>
+  <path d="M136,190 V265 H150" class="w" marker-end="url(#a)"/>
+  <path d="M173,280 V300 H32 V206 H42" class="w" marker-end="url(#a)"/>
+  <path d="M222,190 H234" class="w" marker-end="url(#a)"/>
+
+  <rect x="266" y="124" width="138" height="64" class="blk"/>
+  <text x="335" y="146" class="lbl" text-anchor="middle">Decoder</text>
+  <text x="335" y="161" class="small" text-anchor="middle">imm I / S / B / U / J</text>
+  <text x="335" y="175" class="small" text-anchor="middle">illegal, ecall, ebreak</text>
+  <rect x="290" y="226" width="116" height="86" class="blk"/>
+  <text x="348" y="252" class="lbl" text-anchor="middle">Register file</text>
+  <text x="348" y="268" class="small" text-anchor="middle">32 x 32, x0 reads 0</text>
+  <text x="348" y="282" class="small" text-anchor="middle">2 read, 1 write port</text>
+  <path d="M430,246 L444,256 V282 L430,292 Z" class="blk"/>
+  <rect x="386" y="372" width="120" height="60" class="blk"/>
+  <text x="446" y="394" class="lbl" text-anchor="middle">Hazard unit</text>
+  <text x="446" y="409" class="small" text-anchor="middle">load-use (fwd on)</text>
+  <text x="446" y="422" class="small" text-anchor="middle">RAW interlock (fwd off)</text>
+  <path d="M252,156 H266" class="w" marker-end="url(#a)"/>
+  <path d="M258,156 V269 H290" class="w" marker-end="url(#a)"/>
+  <text x="262" y="320" class="small">rs1, rs2</text>
+  <path d="M404,156 H510" class="w" marker-end="url(#a)"/>
+  <text x="440" y="150" class="small">ctrl, imm</text>
+  <path d="M406,269 H430" class="w" marker-end="url(#a)"/>
+  <path d="M444,269 H510" class="w" marker-end="url(#a)"/>
+  <text x="456" y="263" class="small">rs1v, rs2v</text>
+
+  <path d="M552,180 L570,190 V230 L552,240 Z" class="blk"/>
+  <text x="561" y="174" class="small" text-anchor="middle">fwd A</text>
+  <path d="M552,260 L570,270 V310 L552,320 Z" class="blk"/>
+  <text x="561" y="254" class="small" text-anchor="middle">fwd B</text>
+  <path d="M600,176 L652,200 V272 L600,296 V250 L612,236 L600,222 Z" class="blk"/>
+  <text x="634" y="240" class="lbl" text-anchor="middle">ALU</text>
+  <rect x="664" y="124" width="132" height="46" class="blk"/>
+  <text x="730" y="143" class="lbl" text-anchor="middle">Branch + target</text>
+  <text x="730" y="159" class="small" text-anchor="middle">pc+imm, (rs1+imm) &amp; ~1</text>
+  <rect x="664" y="372" width="132" height="60" class="blk"/>
+  <text x="730" y="394" class="lbl" text-anchor="middle">Forwarding unit</text>
+  <text x="730" y="409" class="small" text-anchor="middle">newest producer wins</text>
+  <text x="730" y="422" class="small" text-anchor="middle">rd = x0 never forwards</text>
+  <path d="M528,210 H552" class="w" marker-end="url(#a)"/>
+  <path d="M528,290 H552" class="w" marker-end="url(#a)"/>
+  <path d="M570,210 H585 V200 H600" class="w" marker-end="url(#a)"/>
+  <path d="M570,290 H585 V272 H600" class="w" marker-end="url(#a)"/>
+  <path d="M580,210 V147 H664" class="w" marker-end="url(#a)"/>
+  <path d="M652,236 H806" class="w" marker-end="url(#a)"/>
+  <path d="M578,290 V344 H796 V300 H806" class="w" marker-end="url(#a)"/>
+  <text x="690" y="340" class="small">store data</text>
+  <path d="M664,402 H561 V322" class="w" marker-end="url(#a)"/>
+  <text x="600" y="398" class="small">select A, B</text>
+
+  <rect x="842" y="166" width="150" height="120" class="blk"/>
+  <text x="917" y="188" class="lbl" text-anchor="middle">Memory wrapper</text>
+  <text x="917" y="205" class="small" text-anchor="middle">RAM 4 KiB @ 0x00010000</text>
+  <text x="917" y="219" class="small" text-anchor="middle">ROM data reads</text>
+  <text x="917" y="233" class="small" text-anchor="middle">signature @ 0x80000000</text>
+  <text x="917" y="247" class="small" text-anchor="middle">byte enables, sign extend</text>
+  <text x="917" y="261" class="small" text-anchor="middle">alignment / map faults</text>
+  <text x="917" y="275" class="small" text-anchor="middle">store commit gate</text>
+  <path d="M824,236 H842" class="w" marker-end="url(#a)"/>
+  <path d="M824,300 H834 V270 H842" class="w" marker-end="url(#a)"/>
+  <path d="M992,226 H1032" class="w" marker-end="url(#a)"/>
+  <path d="M836,236 V146 H1032" class="w" marker-end="url(#a)"/>
+  <text x="900" y="140" class="small">ALU result / PC+4</text>
+
+  <path d="M1068,196 L1086,206 V266 L1068,276 Z" class="blk"/>
+  <text x="1077" y="190" class="small" text-anchor="middle">result</text>
+  <rect x="1124" y="300" width="92" height="76" class="blk"/>
+  <text x="1170" y="320" class="lbl" text-anchor="middle">Retirement</text>
+  <text x="1170" y="336" class="small" text-anchor="middle">R seq pc inst</text>
+  <text x="1170" y="349" class="small" text-anchor="middle">rd data, store</text>
+  <text x="1170" y="362" class="small" text-anchor="middle">S cause pc</text>
+  <path d="M1050,226 H1068" class="w" marker-end="url(#a)"/>
+  <path d="M1050,146 H1060 V210 H1068" class="w" marker-end="url(#a)"/>
+  <path d="M1086,236 H1112" class="w"/>
+  <path d="M1112,250 H1170 V300" class="w" marker-end="url(#a)"/>
+
+  <path d="M1112,236 V112 H418 V236 H406" class="w" marker-end="url(#a)"/>
+  <text x="540" y="126" class="small">register write (WB)</text>
+  <path d="M437,112 V250" class="fw" marker-end="url(#f)"/>
+  <text x="442" y="214" class="fwt">WB-to-ID</text>
+  <text x="442" y="226" class="fwt">bypass</text>
+
+  <path d="M832,236 V444 H538 V196 H552" class="fw" marker-end="url(#f)"/>
+  <path d="M538,276 H552" class="fw" marker-end="url(#f)"/>
+  <text x="600" y="458" class="fwt">EX/MEM -&gt; EX (ALU result, PC+4)</text>
+  <path d="M1112,236 V464 H546 V224 H552" class="fw" marker-end="url(#f)"/>
+  <path d="M546,304 H552" class="fw" marker-end="url(#f)"/>
+  <text x="850" y="460" class="fwt">MEM/WB -&gt; EX (incl. load data)</text>
+
+  <path d="M730,124 V70 H30 V160 H42" class="rd" marker-end="url(#r)"/>
+  <text x="250" y="65" class="rdt">taken branch / jump resolved in EX: redirect PC, clear IF/ID and ID/EX valid (2 bubbles); older faults block it</text>
+  <path d="M386,412 H103 V212" class="rd" marker-end="url(#r)"/>
+  <text x="262" y="450" class="rdt">stall: hold PC and IF/ID, bubble into ID/EX</text>
+
+  <rect x="20" y="520" width="1200" height="126" fill="#fafbfc" stroke="#9aa5b1" stroke-dasharray="5 3"/>
+  <path d="M125,484 V536 M381,484 V536 M667,484 V536 M928,484 V536 M1137,484 V536 M125,536 H1137" class="tr"/>
+  <path d="M620,536 V554" class="tr" marker-end="url(#t)"/>
+  <rect x="470" y="556" width="300" height="62" class="blk"/>
+  <text x="620" y="578" class="lbl" text-anchor="middle" font-weight="700">rv_trace: 16 x 128-bit ring buffer</text>
+  <text x="620" y="594" class="small" text-anchor="middle">trigger mask {redirect, stall}, post-trigger count,</text>
+  <text x="620" y="608" class="small" text-anchor="middle">freeze, rearm, wrap, synchronous reset</text>
+  <text x="34" y="566" class="small">Sample every cycle:</text>
+  <text x="34" y="580" class="small">cycle, valid + PC of all five stages,</text>
+  <text x="34" y="594" class="small">forward selects A/B, stall reason,</text>
+  <text x="34" y="608" class="small">redirect + target, stop cause</text>
+  <text x="790" y="580" class="small">Read port + status (wptr, wrapped, triggered,</text>
+  <text x="790" y="594" class="small">frozen, trig_idx) dumped by the testbench and</text>
+  <text x="790" y="608" class="small">decoded by tools/trace_decode.py</text>
+</svg>
